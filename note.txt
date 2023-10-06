@@ -1,0 +1,9 @@
+Clerk Authentication: https://bit.ly/3Kmyytc (login)
+
+Planetscale: https://app.planetscale.com/advitt-me (data)
+
+Prisma: https://prisma.io 
+
+Cloudinary: https://cloudinary.com/ (cloud)
+
+Stripe: https://dashboard.stripe.com/test/dashboard 
