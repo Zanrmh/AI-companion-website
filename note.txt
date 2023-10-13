@@ -7,3 +7,9 @@ Prisma: https://prisma.io
 Cloudinary: https://cloudinary.com/ (cloud)
 
 Stripe: https://dashboard.stripe.com/test/dashboard 
+
+
+npx prisma studio: mở table data
+npx prisma generate
+npx prisma db push
+node scripts/seed.ts
