@@ -20,7 +20,7 @@ export async function POST(
     const user = await currentUser();
 
     if (!user || !user.firstName || !user.id) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse('Không được phép', { status: 401 });
     }
 
     const identifier = request.url + '-' + user.id;
@@ -46,7 +46,7 @@ export async function POST(
     });
 
     if (!companion) {
-      return new NextResponse('Companion not found', { status: 404 });
+      return new NextResponse('Không tìm thấy', { status: 404 });
     }
 
     const name = companion.id;
@@ -70,9 +70,6 @@ export async function POST(
     const recentChatHistory = await memoryManager.readLatestHistory(
       companionKey
     );
-
-    // Right now the preamble is included in the similarity search, but that
-    // shouldn't be an issue
 
     const similarDocs = await memoryManager.vectorSearch(
       recentChatHistory,
@@ -146,6 +143,6 @@ export async function POST(
 
     return new StreamingTextResponse(s);
   } catch (error) {
-    return new NextResponse('Internal Error', { status: 500 });
+    return new NextResponse('Lỗi máy chủ', { status: 500 });
   }
 }

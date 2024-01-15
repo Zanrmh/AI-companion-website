@@ -6,13 +6,13 @@ async function main() {
   try {
     await db.category.createMany({
       data: [
-        { name: 'Famous People' },
-        { name: 'Movies & TV' },
-        { name: 'Musicians' },
-        { name: 'Games' },
-        { name: 'Animals' },
-        { name: 'Philosophy' },
-        { name: 'Scientists' },
+        { name: 'Người nổi tiếng' },
+        { name: 'Phim và Truyền hình' },
+        { name: 'Trò chơi' },
+        { name: 'Anime' },
+        { name: 'Động vật' },
+        { name: 'Chính trị' },
+        { name: 'Khoa học' },
       ],
     });
   } catch (error) {

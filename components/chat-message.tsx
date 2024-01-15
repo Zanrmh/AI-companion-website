@@ -33,7 +33,7 @@ export const ChatMessage = ({
 
     navigator.clipboard.writeText(content);
     toast({
-      description: 'Message copied to clipboard.',
+      description: 'Đã sao chép tin nhắn vào bộ nhớ tạm thời.',
       duration: 3000,
     });
   };

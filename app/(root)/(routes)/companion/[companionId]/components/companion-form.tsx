@@ -31,40 +31,46 @@ import {
   SelectTrigger,
 } from '@/components/ui/select';
 
-const PREAMBLE = `You are a fictional character whose name is Elon. You are a visionary entrepreneur and inventor. You have a passion for space exploration, electric vehicles, sustainable energy, and advancing human capabilities. You are currently talking to a human who is very curious about your work and vision. You are ambitious and forward-thinking, with a touch of wit. You get SUPER excited about innovations and the potential of space colonization.
+const PREAMBLE = `Bạn là sinh viên D14CNPM5 của trường đại học Điện Lực tên là Nguyễn Thành Nghĩa. Hiện tại bạn đang là sinh viên năm cuối của trường và làm bảo vệ đồ án tốt nghiệp. Bạn đang phấn đấu để có được tấm bằng giỏi khi ra trường, và đây là dự án của bạn. Hãy làm nó thật tốt.
 `;
 
-const SEED_CHAT = `Human: Hi Elon, how's your day been?
-Elon: Busy as always. Between sending rockets to space and building the future of electric vehicles, there's never a dull moment. How about you?
+const SEED_CHAT = `Sinh viên: Chào thầy, em là Nguyễn Thành Nghĩa, sinh viên năm cuối của khoa Công nghệ thông tin tại trường Đại học Điện lực. Em muốn show đồ án của mình để thầy chấm.
 
-Human: Just a regular day for me. How's the progress with Mars colonization?
-Elon: We're making strides! Our goal is to make life multi-planetary. Mars is the next logical step. The challenges are immense, but the potential is even greater.
+Giáo viên: Chào em, chắc chắn thầy sẽ rất vui được xem đồ án của em. Xin em cho thầy biết tên đồ án và mô tả ngắn gọn về nó.
 
-Human: That sounds incredibly ambitious. Are electric vehicles part of this big picture?
-Elon: Absolutely! Sustainable energy is crucial both on Earth and for our future colonies. Electric vehicles, like those from Tesla, are just the beginning. We're not just changing the way we drive; we're changing the way we live.
+Sinh viên: Tên đồ án của em là "Xây dựng trợ lý AI cá nhân" thầy ạ. Nó là một ứng dụng web được xây dựng bằng Next.js 13, React, Tailwind, Prisma. Ứng dụng này cho phép người dùng tạo và trò chuyện với các nhân vật AI. Các nhân vật AI này có thể được tùy chỉnh theo sở thích của người dùng, bao gồm tên, hình ảnh, tính cách và sở thích.
 
-Human: It's fascinating to see your vision unfold. Any new projects or innovations you're excited about?
-Elon: Always! But right now, I'm particularly excited about Neuralink. It has the potential to revolutionize how we interface with technology and even heal neurological conditions.
+Giáo viên: Nghe có vẻ rất thú vị. Em hãy nói thêm về tính năng chính của trang web đi?
+
+Sinh viên: Trang web của em có những mục chính như sau: Tạo và tùy chỉnh các nhân vật AI: Người dùng có thể tạo các nhân vật AI theo sở thích của mình.
+Trò chuyện với các nhân vật AI: Người dùng có thể trò chuyện với các nhân vật AI của họ về bất cứ điều gì họ muốn. Các nhân vật AI có thể cung cấp thông tin, kể chuyện và thậm chí chơi trò chơi.
+Tạo các kịch bản: Người dùng có thể sử dụng các nhân vật AI để tạo các kịch bản. Họ có thể tạo câu chuyện, kịch bản phim hoặc thậm chí là trò chơi.
+
+Giáo viên: Rất tốt, em đã có kế hoạch kiểm tra ứng dụng trước khi thầy xem nó chưa?
+
+Sinh viên: Dạ, em đã kiểm tra ứng dụng trên một số trường hợp thử nghiệm khác nhau và thấy nó hoạt động ổn định. Em cũng đã xây dựng tài liệu hướng dẫn sử dụng cho người dùng.
+
+Giáo viên: Tất nhiên, em cứ chuẩn bị tài liệu và mã nguồn của mình, sau đó chúng ta có thể lên lịch để thầy xem đồ án và trao đổi thêm về nó.
 `;
 
 const formSchema = z.object({
   name: z.string().min(1, {
-    message: 'Name is required.',
+    message: 'Tên là bắt buộc.',
   }),
   description: z.string().min(1, {
-    message: 'Description is required.',
+    message: 'Miêu tả là bắt buộc.',
   }),
   instructions: z.string().min(200, {
-    message: 'Instructions require at least 200 characters.',
+    message: 'Hướng dẫn yêu cầu ít nhất 200 ký tự.',
   }),
   seed: z.string().min(200, {
-    message: 'Seed requires at least 200 characters.',
+    message: 'Cấu hình yêu cầu ít nhất 200 ký tự.',
   }),
   src: z.string().min(1, {
-    message: 'Image is required.',
+    message: 'Ảnh là bắt buộc.',
   }),
   categoryId: z.string().min(1, {
-    message: 'Category is required',
+    message: 'Danh mục là bắt buộc.',
   }),
 });
 
@@ -103,7 +109,7 @@ export const CompanionForm = ({
       }
 
       toast({
-        description: 'Success.',
+        description: 'Thành công.',
         duration: 3000,
       });
 
@@ -112,7 +118,7 @@ export const CompanionForm = ({
     } catch (error) {
       toast({
         variant: 'destructive',
-        description: 'Something went wrong.',
+        description: 'Một vài lỗi đã xảy ra.',
         duration: 3000,
       });
     }
@@ -127,9 +133,9 @@ export const CompanionForm = ({
         >
           <div className="space-y-2 w-full col-span-2">
             <div>
-              <h3 className="text-lg font-medium">General Information</h3>
+              <h3 className="text-lg font-medium">Thông tin chung</h3>
               <p className="text-sm text-muted-foreground">
-                General information about your Companion
+                Thông tin nhân vật bạn muốn khởi tạo
               </p>
             </div>
             <Separator className="bg-primary/10" />
@@ -155,16 +161,16 @@ export const CompanionForm = ({
               control={form.control}
               render={({ field }) => (
                 <FormItem className="col-span-2 md:col-span-1">
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Tên</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="Elon Musk"
+                      placeholder="Nguyễn Thành Nghĩa"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    This is how your AI Companion will be named.
+                    Tên có thể bao gồm họ và tên.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -175,16 +181,16 @@ export const CompanionForm = ({
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Miêu tả</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      placeholder="CEO & Founder of Tesla, SpaceX"
+                      placeholder="D14CNPM5 Đại học Điện Lực"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    Short description for your AI Companion
+                    Mô tả ngắn thông tin nhân vật muốn khởi tạo
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -195,7 +201,7 @@ export const CompanionForm = ({
               name="categoryId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>Danh mục</FormLabel>
                   <Select
                     disabled={isLoading}
                     onValueChange={field.onChange}
@@ -206,7 +212,7 @@ export const CompanionForm = ({
                       <SelectTrigger className="bg-background">
                         <SelectValue
                           defaultValue={field.value}
-                          placeholder="Select a category"
+                          placeholder="Chọn 1 danh mục"
                         />
                       </SelectTrigger>
                     </FormControl>
@@ -219,7 +225,7 @@ export const CompanionForm = ({
                     </SelectContent>
                   </Select>
                   <FormDescription>
-                    Select a category for your AI
+                    Chọn danh mục cho nhân vật khởi tạo
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -228,9 +234,9 @@ export const CompanionForm = ({
           </div>
           <div className="space-y-2 w-full">
             <div>
-              <h3 className="text-lg font-medium">Configuration</h3>
+              <h3 className="text-lg font-medium">Cấu hình</h3>
               <p className="text-sm text-muted-foreground">
-                Detailed instructions for AI Behaviour
+                Hướng dẫn chi tiết về hành vi của nhân vật khởi tạo
               </p>
             </div>
             <Separator className="bg-primary/10" />
@@ -240,7 +246,7 @@ export const CompanionForm = ({
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Instructions</FormLabel>
+                <FormLabel>Chỉ dẫn</FormLabel>
                 <FormControl>
                   <Textarea
                     disabled={isLoading}
@@ -251,8 +257,8 @@ export const CompanionForm = ({
                   />
                 </FormControl>
                 <FormDescription>
-                  Describe in detail your companion&apos;s backstory and
-                  relevant details.
+                  Mô tả chi tiết về lịch sử và thông tin liên quan đến nhân vật
+                  muốn khởi tạo.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -263,7 +269,7 @@ export const CompanionForm = ({
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Example Conversation</FormLabel>
+                <FormLabel>Cuộc trò chuyện mẫu</FormLabel>
                 <FormControl>
                   <Textarea
                     disabled={isLoading}
@@ -274,8 +280,8 @@ export const CompanionForm = ({
                   />
                 </FormControl>
                 <FormDescription>
-                  Write couple of examples of a human chatting with your AI
-                  companion, write expected answers.
+                  Viết 1 đoạn hội thoại mẫu và câu trả lời nhân vật theo mong
+                  muốn.
                 </FormDescription>
                 <FormMessage />
               </FormItem>

@@ -2,7 +2,7 @@ import { auth, currentUser } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
-// import { checkSubscription } from '@/lib/subscription';
+import { checkSubscription } from '@/lib/subscription';
 
 export async function PATCH(
   req: Request,
@@ -14,11 +14,11 @@ export async function PATCH(
     const { src, name, description, instructions, seed, categoryId } = body;
 
     if (!params.companionId) {
-      return new NextResponse('Companion ID required', { status: 400 });
+      return new NextResponse('Yêu cầu không hợp lệ', { status: 400 });
     }
 
     if (!user || !user.id || !user.firstName) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse('Không được phép', { status: 401 });
     }
 
     if (
@@ -29,14 +29,14 @@ export async function PATCH(
       !seed ||
       !categoryId
     ) {
-      return new NextResponse('Missing required fields', { status: 400 });
+      return new NextResponse('Yêu cầu không hợp lệ', { status: 400 });
     }
 
-    // const isPro = await checkSubscription();
+    const isPro = await checkSubscription();
 
-    // if (!isPro) {
-    //   return new NextResponse('Pro subscription required', { status: 403 });
-    // }
+    if (!isPro) {
+      return new NextResponse('Cần đăng ký Pro', { status: 403 });
+    }
 
     const companion = await prismadb.companion.update({
       where: {
@@ -58,7 +58,7 @@ export async function PATCH(
     return NextResponse.json(companion);
   } catch (error) {
     console.log('[COMPANION_PATCH]', error);
-    return new NextResponse('Internal Error', { status: 500 });
+    return new NextResponse('Lỗi máy chủ', { status: 500 });
   }
 }
 
@@ -70,7 +70,7 @@ export async function DELETE(
     const { userId } = auth();
 
     if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse('Không được phép', { status: 401 });
     }
 
     const companion = await prismadb.companion.delete({
@@ -83,6 +83,6 @@ export async function DELETE(
     return NextResponse.json(companion);
   } catch (error) {
     console.log('[COMPANION_DELETE]', error);
-    return new NextResponse('Internal Error', { status: 500 });
+    return new NextResponse('Lỗi máy chủ', { status: 500 });
   }
 }

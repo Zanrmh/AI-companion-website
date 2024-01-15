@@ -2,7 +2,7 @@ import { auth, currentUser } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
-// import { checkSubscription } from '@/lib/subscription';
+import { checkSubscription } from '@/lib/subscription';
 
 export async function POST(req: Request) {
   try {
@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const { src, name, description, instructions, seed, categoryId } = body;
 
     if (!user || !user.id || !user.firstName) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return new NextResponse('Không được phép', { status: 401 });
     }
 
     if (
@@ -22,14 +22,14 @@ export async function POST(req: Request) {
       !seed ||
       !categoryId
     ) {
-      return new NextResponse('Missing required fields', { status: 400 });
+      return new NextResponse('Yêu cầu không hợp lệ', { status: 400 });
     }
 
-    // const isPro = await checkSubscription();
+    const isPro = await checkSubscription();
 
-    // if (!isPro) {
-    //   return new NextResponse('Pro subscription required', { status: 403 });
-    // }
+    if (!isPro) {
+      return new NextResponse('Cần đăng ký Pro', { status: 403 });
+    }
 
     const companion = await prismadb.companion.create({
       data: {
@@ -47,6 +47,6 @@ export async function POST(req: Request) {
     return NextResponse.json(companion);
   } catch (error) {
     console.log('[COMPANION_POST]', error);
-    return new NextResponse('Internal Error', { status: 500 });
+    return new NextResponse('Lỗi máy chủ', { status: 500 });
   }
 }

@@ -40,14 +40,14 @@ export const ChatHeader = ({ companion }: ChatHeaderProps) => {
     try {
       await axios.delete(`/api/companion/${companion.id}`);
       toast({
-        description: 'Success.',
+        description: 'Thành công.',
       });
       router.refresh();
       router.push('/');
     } catch (error) {
       toast({
         variant: 'destructive',
-        description: 'Something went wrong.',
+        description: 'Mội vài lỗi đã xảy ra.',
       });
     }
   };

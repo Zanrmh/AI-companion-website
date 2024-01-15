@@ -50,7 +50,7 @@ export const Categories = ({ data }: CategoriesProps) => {
           !categoryId ? 'bg-primary/25' : 'bg-primary/10'
         )}
       >
-        Newest
+        Mới nhất
       </button>
       {data.map((item) => (
         <button

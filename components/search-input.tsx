@@ -45,7 +45,7 @@ export const SearchInput = () => {
       <Input
         onChange={onChange}
         value={value}
-        placeholder="Search..."
+        placeholder="Tìm kiếm..."
         className="pl-10 bg-primary/10"
       />
     </div>
