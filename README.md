@@ -2,44 +2,69 @@
 
 ![Xây Dựng Thị Trấn Giao Lưu Ảo Dựa Trên AI](image.png)
 
-## Mô Tả
+## Tổng Quan
 
-Mô tả ngắn gọn về dự án của bạn.
+Dự án này, với tên gọi "Xây Dựng Thị Trấn Giao Lưu Ảo Dựa Trên AI," là một nền tảng tương tác ảo độc đáo dựa trên AI. Phát triển như một phần của đồ án tốt nghiệp tại Trường Đại học Điện Lực, dự án tích hợp công nghệ AI và Công nghệ Thông tin mới nhất để mang lại trải nghiệm game và tương tác độc đáo.
 
 ## Tính Năng
 
-- Tính năng 1
-- Tính năng 2
-- Tính năng 3
-- ...
+-Thiết kế với Tailwind
+-Tính năng phản hồi đầy đủ
+-Xác thực người dùng với Clerk (Email, Google, 9+ Đăng nhập Xã Hội)
+-Xác thực và xử lý form khách hàng với react-hook-form
+-Xử lý lỗi server với react-toast
+-Công cụ tạo hội thoại (Open AI, Replicate)
+-Đăng ký gói hàng tháng với Stripe
+-Gói miễn phí với giới hạn API
+-Cách viết route POST, DELETE, và GET trong route handlers (app/api)
+-Cấu trúc thư mục trong Next 13 App Router
 
 ## Công Nghệ Sử Dụng
 
-- Công nghệ 1
-- Công nghệ 2
-- Công nghệ 3
-- ...
+-Next.js: Dùng cho phát triển giao diện người dùng và xử lý chức năng ở phía client.
+-Tailwind CSS: Để thiết kế và tùy chỉnh giao diện.
+-Prisma: Là công cụ quản lý cơ sở dữ liệu.
+-Stripe: Dùng cho xử lý thanh toán và đăng ký dịch vụ.
+-OpenAI và Replicate: Có thể sử dụng OpenAI cho các tính năng như chatbot,.
+-Clerk: Sử dụng giải pháp cho việc đăng nhập và quản lý người dùng an toàn.
 
 ## Cài Đặt
 
-Hướng dẫn từng bước về cách thiết lập môi trường phát triển:
+1. npm i: cài đặt thư viện
+2. thêm biến môi trường:
 
-1. Sao chép kho lưu trữ: `git clone [URL kho lưu trữ]`
-2. Cài đặt các gói phụ thuộc: `npm install`
-3. ...
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 
-## Cách Sử Dụng
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 
-Cách sử dụng ứng dụng, bao gồm các bước cài đặt cần thiết.
+OPENAI_API_KEY=
+REPLICATE_API_TOKEN=
 
-## Đóng Góp
+PINECONE_API_KEY=
+PINECONE_ENVIRONMENT=
+PINECONE_INDEX=
 
-Hướng dẫn về cách mọi người có thể đóng góp vào dự án.
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
 
-## Bản Quyền
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
 
-Nêu rõ bản quyền (nếu có).
+DATABASE_URL=
 
-## Cảm Ơn
+STRIPE_API_KEY=
+STRIPE_WEBHOOK_SECRET=
 
-Ghi nhận bất kỳ ai hoặc nguồn tài nguyên nào đã giúp ích cho bạn.
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+3. Cài đặt csdl (sử dụng Prisma)
+
+npx prisma studio: mở table data
+npx prisma generate
+npx prisma db push
+node scripts/seed.ts
+
+##Hớt rồi hông còn gì nữa đâu.-.
