@@ -119,9 +119,17 @@ export async function POST(
     await memoryManager.writeToHistory('' + response.trim(), companionKey);
     var Readable = require('stream').Readable;
 
-    let s = new Readable();
-    s.push(response);
-    s.push(null);
+    const encoder = new TextEncoder();
+    let s = new ReadableStream({
+      start(controller) {
+        controller.enqueue(encoder.encode(response.trim()));
+        controller.close();
+      },
+    });
+
+    // let s = new Readable();
+    // s.push(response);
+    // s.push(null);
     if (response !== undefined && response.length > 1) {
       memoryManager.writeToHistory('' + response.trim(), companionKey);
 

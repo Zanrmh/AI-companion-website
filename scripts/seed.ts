@@ -13,6 +13,9 @@ async function main() {
         { name: 'Động vật' },
         { name: 'Chính trị' },
         { name: 'Khoa học' },
+        { name: 'Âm nhạc' },
+        { name: 'Văn học' },
+        { name: 'Công nghệ' },
       ],
     });
   } catch (error) {
